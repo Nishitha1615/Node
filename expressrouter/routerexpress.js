@@ -90,12 +90,12 @@ const storybooks = [
 // const MONGO_URL="mongodb://127.0.0.1:27017"
 
 const MONGO_URL=process.env.MONGO_URL;
-// console.log(process.env);
+console.log(process.env);
 async function createConnection()
 {
   const client=new MongoClient(MONGO_URL);
   await client.connect();
-  console.log("MongoDB is connected")
+  console.log("MongoDB connected")
   return client;
   
 }
@@ -106,32 +106,15 @@ const client=await createConnection();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Rest EndPoints 
 
-// -> app.get('/', function (req, res) {
-//   res.send('Hello!! i am nishitha')
-// })
+ app.get('/', function (req, res) {
+  res.send('Hello!! i am nishitha')
+})
 
 //get all the books
 
-// ->  app.get('/storybooks', function (req, res) {
+// -> app.get('/storybooks', function (req, res) {
 //     res.send(storybooks)
 //   });
 
@@ -151,7 +134,7 @@ const client=await createConnection();
 app.get('/storybooks/:id', async (req, res) =>{
       const {id}=req.params
       console.log(req.params);
-      const books=await client.db("practicedb").collection("books").findOne({id:id}); 
+      const books=await client.db("practicedb").collection("expressbook").findOne({id:id}); 
       //storybooks.find((bk)=>bk.id==id);
       res.send(books);
     });
@@ -161,7 +144,7 @@ app.get('/storybooks/:id', async (req, res) =>{
 // -> app.delete('/storybooks/:id', async (req, res) =>{
 //         const {id}=req.params
 //         console.log(req.params);
-//         const books=await client.db("practicedb").collection("books").deleteOne({id:id}); 
+//         const books=await client.db("practicedb").collection("expressbook").deleteOne({id:id}); 
 //         //storybooks.find((bk)=>bk.id==id);
 //         res.send(books);
 //       });
@@ -209,7 +192,7 @@ app.get('/storybooks/:id', async (req, res) =>{
       req.query.rating=+req.query.rating;
     }
 
-    const books=await client.db("practicedb").collection("books").find(req.query).toArray();
+    const books=await client.db("practicedb").collection("expressbook").find(req.query).toArray();
     res.send(books);
    
   });
@@ -235,7 +218,7 @@ app.get('/storybooks/:id', async (req, res) =>{
   app.post('/storybooks',async(req, res)=> {
     const newbook=req.body;
     console.log(newbook);
-    const result=await client.db("practicedb").collection("books").insertMany(newbook); 
+    const result=await client.db("practicedb").collection("expressbook").insertMany(newbook); 
         res.send(result)
       });
     
